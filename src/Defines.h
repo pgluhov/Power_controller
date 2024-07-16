@@ -1,0 +1,37 @@
+
+#ifndef DEFINES_H
+#define DEFINES_H
+#include <Arduino.h>
+
+// ========== ДЕФАЙНЫ НАСТРОЕК ==========
+
+#define ENABLE_DEBUG_ALL  0  // Если 1 то общая отладка включена
+#define ENABLE_DEBUG_KEYB 0  // Если 1 то отладка клавиатуры включена 
+#define ENABLE_DEBUG_UART 1  // Если 1 то отладка обмена по uart включена 
+String REV_VERSION = "Firmware version 1.00"; 
+ 
+//--------номера IO-------------------
+
+#define RXPIN  33  
+#define TXPIN  32
+
+//--------номера IO-------------------
+
+// счет столбца слева-направо
+#define column_1  4   // Пин для столбеца 1
+#define column_2  16  // Пин для столбеца 2
+#define column_3  17  // Пин для столбеца 3
+#define column_4  5   // Пин для столбеца 4
+int columnArray[] = {column_1, column_2, column_3, column_4};
+ 
+
+// счет ряда снизу-вверх
+#define row_1  2      // Пин для ряда 1
+#define row_2  15     // Пин для ряда 2
+#define row_3  13     // Пин для ряда 3
+#define row_4  14     // Пин для ряда 4
+#define row_5  27     // Пин для ряда 5
+#define row_6  25     // Пин для ряда 6
+int rowArray[] = {row_1, row_2, row_3, row_4, row_5, row_6};
+
+#endif //DEFINES_H
