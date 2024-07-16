@@ -5,15 +5,21 @@
 
 // ========== ДЕФАЙНЫ НАСТРОЕК ==========
 
+#define ENABLE_DEBUG_TASK 0  // Если 1 то общая отладка в задачах включена
 #define ENABLE_DEBUG_ALL  0  // Если 1 то общая отладка включена
 #define ENABLE_DEBUG_KEYB 0  // Если 1 то отладка клавиатуры включена 
-#define ENABLE_DEBUG_UART 1  // Если 1 то отладка обмена по uart включена 
+#define ENABLE_DEBUG_UART 0  // Если 1 то отладка обмена по uart включена 
+#define ENABLE_DEBUG_ENC  1  // Если 1 то отладка энкодера в Serial 
 String REV_VERSION = "Firmware version 1.00"; 
  
 //--------номера IO-------------------
 
 #define RXPIN  33  
 #define TXPIN  32
+
+#define BTN_ENC    34 
+#define ENCODER_A  39 
+#define ENCODER_B  36 
 
 //--------номера IO-------------------
 
