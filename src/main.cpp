@@ -8,6 +8,9 @@ struct Tx_buff{       // Структура передатчик на основ
   uint8_t Column;
   uint8_t RawBits;
   bool statPress;
+  int enc_step=0;
+  int enc_click=0;
+  int enc_held=0;
   byte crc;
 };
 #pragma pack(pop)
@@ -132,9 +135,9 @@ void Task1code(void* pvParameters) {  // Опрос клавиатуры
           #if (ENABLE_DEBUG_KEYB == 1)
           Serial.print("Task1 Отправлены данные в очередь "); 
           Serial.println(statusColumn, BIN);
-          Serial.print("Task1 номер активныого ряда   " );
+          Serial.print("Task1 номер активного ряда   " );
           Serial.println(message.activeRow); 
-          Serial.print("Task1 номер активныого столбца   " );
+          Serial.print("Task1 номер активного столбца   " );
           Serial.println(message.activeColumn);
           Serial.print("Task1 статус нажатия   " );
           Serial.println(message.statPress); 
@@ -222,7 +225,6 @@ void Task2code(void* pvParameters) {  // Отправка команд чере�
         Serial.println(message.activeColumn); 
         Serial.print("Task2 статус нажатия   " );
         Serial.println(message.statPress); 
-        Serial.println(); 
         #endif
         
         TxBuff.Row = message.activeRow;        // Номер строки
@@ -230,7 +232,6 @@ void Task2code(void* pvParameters) {  // Отправка команд чере�
         TxBuff.RawBits = message.statusColumn; // Байт с битами всего столбца
         TxBuff.statPress = message.statPress;  // Статус нажата или отпущена кнопка
         TxBuff.crc = crc8_bytes((byte*)&TxBuff, sizeof(TxBuff) - 1);
-
         Serial1.write((byte*)&TxBuff, sizeof(TxBuff));        
         }
       }

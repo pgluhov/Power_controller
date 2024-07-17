@@ -7,9 +7,9 @@
 
 #define ENABLE_DEBUG_TASK 0  // Если 1 то общая отладка в задачах включена
 #define ENABLE_DEBUG_ALL  0  // Если 1 то общая отладка включена
-#define ENABLE_DEBUG_KEYB 0  // Если 1 то отладка клавиатуры включена 
+#define ENABLE_DEBUG_KEYB 1  // Если 1 то отладка клавиатуры включена 
 #define ENABLE_DEBUG_UART 0  // Если 1 то отладка обмена по uart включена 
-#define ENABLE_DEBUG_ENC  0  // Если 1 то отладка энкодера в Serial 
+#define ENABLE_DEBUG_ENC  1  // Если 1 то отладка энкодера в Serial 
 
 String DEVICE_NAME = "Power controller"; // Имя девайса
 String CURRENT_VERSION_SW = "1.04";      // Текущая версиия прошивки 
@@ -35,7 +35,7 @@ int columnArray[] = {column_1, column_2, column_3, column_4};
  
 
 // счет ряда снизу-вверх
-#define row_1  2      // Пин для ряда 1
+#define row_1  18     // Пин для ряда 1
 #define row_2  15     // Пин для ряда 2
 #define row_3  13     // Пин для ряда 3
 #define row_4  14     // Пин для ряда 4
