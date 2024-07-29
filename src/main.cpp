@@ -5,8 +5,8 @@
 #pragma pack(push, 1) // используем принудительное выравнивание
 struct Tx_buff{       // Структура передатчик на основной контроллер
   int Row;
-  uint8_t Column;
-  uint8_t RawBits;
+  int Column;
+  int RawBits;
   bool statPress;
   int enc_step=0;
   int enc_click=0;
@@ -132,7 +132,7 @@ void Task1code(void* pvParameters) {  // Опрос клавиатуры
       if(QueueHandleKeyboard != NULL && uxQueueSpacesAvailable(QueueHandleKeyboard) > 0){ // проверьте, существует ли очередь И есть ли в ней свободное место
         int ret = xQueueSend(QueueHandleKeyboard, (void*) &message, 0);
         if(ret == pdTRUE){
-          #if (ENABLE_DEBUG_KEYB == 1)
+          #if (ENABLE_DEBUG_KEYB_TASK1 == 1)
           Serial.print("Task1 Отправлены данные в очередь "); 
           Serial.println(statusColumn, BIN);
           Serial.print("Task1 номер активного ряда   " );
@@ -163,7 +163,7 @@ void Task1code(void* pvParameters) {  // Опрос клавиатуры
       if(QueueHandleKeyboard != NULL && uxQueueSpacesAvailable(QueueHandleKeyboard) > 0){ // проверьте, существует ли очередь И есть ли в ней свободное место
         int ret = xQueueSend(QueueHandleKeyboard, (void*) &message, 0);
         if(ret == pdTRUE){
-          #if (ENABLE_DEBUG_KEYB == 1)
+          #if (ENABLE_DEBUG_KEYB_TASK1 == 1)
           Serial.print("Task1 Отправлены данные в очередь "); 
           Serial.println(statusColumn, BIN); 
           Serial.print("Task1 номер активныого ряда   " );
@@ -217,22 +217,33 @@ void Task2code(void* pvParameters) {  // Отправка команд чере�
       int ret = xQueueReceive(QueueHandleKeyboard, &message, portMAX_DELAY);
       if(ret == pdPASS){
         #if (ENABLE_DEBUG_KEYB == 1)
-        Serial.print("Task2 получены данные из очереди  " );
+        Serial.print("Task2 получены данные из очереди  " );  
         Serial.println(message.statusColumn,BIN); 
         Serial.print("Task2 номер активныого ряда   " );
         Serial.println(message.activeRow); 
         Serial.print("Task2 номер активныого столбца   " );
         Serial.println(message.activeColumn); 
         Serial.print("Task2 статус нажатия   " );
-        Serial.println(message.statPress); 
+        Serial.println(message.statPress);  
+        Serial.print("enc_step значение " );
+        Serial.println(message.enc_step);         
+        Serial.print("enc_click значение " );
+        Serial.println(message.enc_click);         
+        Serial.print("enc_held значение " );
+        Serial.println(message.enc_held); 
+        Serial.println(); 
         #endif
         
         TxBuff.Row = message.activeRow;        // Номер строки
         TxBuff.Column = message.activeColumn;  // Номер столбца
         TxBuff.RawBits = message.statusColumn; // Байт с битами всего столбца
-        TxBuff.statPress = message.statPress;  // Статус нажата или отпущена кнопка
+        TxBuff.statPress = message.statPress;  // Статус нажата или отпущена кнопка         
+        TxBuff.enc_step = message.enc_step; 
+        TxBuff.enc_click = message.enc_click;
+        TxBuff.enc_held = message.enc_held;               
         TxBuff.crc = crc8_bytes((byte*)&TxBuff, sizeof(TxBuff) - 1);
-        Serial1.write((byte*)&TxBuff, sizeof(TxBuff));        
+
+        Serial1.write((byte*)&TxBuff, sizeof(TxBuff));       
         }
       }
    }
