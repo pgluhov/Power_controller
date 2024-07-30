@@ -235,7 +235,27 @@ void Task2code(void* pvParameters) {  // Отправка команд чере�
         Serial.println(message.enc_held); 
         Serial.println(); 
         #endif
+
+      #if (ENABLE_DEBUG_TERMINAL == 1)  
+        //if (enc.left()) Serial.println("left");     // поворот налево
+        //if (enc.right()) Serial.println("right");   // поворот направо
+        //if (enc.leftH()) Serial.println("leftH");   // нажатый поворот налево
+        //if (enc.rightH()) Serial.println("rightH"); // нажатый поворот направо
+        //if (enc.press()) Serial.println("press");
+        //if (enc.click()) Serial.println("click");
+        //if (enc.release()) Serial.println("release"); 
+        //if (enc.held()) Serial.println("held");      // однократно вернёт true при удержании 
+
+        Serial.print("номер ряда ");
+        Serial.println(message.activeRow); 
+        Serial.print("номер столбца ");
+        Serial.println(message.activeColumn); 
+        Serial.print("статус нажатия ");
+        Serial.println(message.statPress); 
+        Serial.println(); 
+      #endif
         
+
         TxBuff.Row = message.activeRow;        // Номер строки
         TxBuff.Column = message.activeColumn;  // Номер столбца
         TxBuff.RawBits = message.statusColumn; // Байт с битами всего столбца
