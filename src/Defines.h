@@ -13,8 +13,8 @@
 #define ENABLE_DEBUG_ENC  0  // Если 1 то отладка энкодера в Serial 
 
 String DEVICE_NAME = "Power controller"; // Имя девайса
-String CURRENT_VERSION_SW = "1.06";      // Текущая версиия прошивки 
-String VERSION_SW = "Версия ПО 1.06";    // Текст для отображения
+String CURRENT_VERSION_SW = "1.07";      // Текущая версиия прошивки 
+String VERSION_SW = "Версия ПО 1.07";    // Текст для отображения
  
 //--------номера IO-------------------
 

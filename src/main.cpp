@@ -9,6 +9,7 @@ struct Tx_buff{       // Структура передатчик на основ
   int RawBits;
   bool statPress;
   int enc_step=0;
+  int enc_stepH = 0;
   int enc_click=0;
   int enc_held=0;
   byte crc;
@@ -50,6 +51,7 @@ typedef struct{
   int statusColumn;
   bool statPress;   
   int enc_step=0;
+  int enc_stepH=0; 
   int enc_click=0;
   int enc_held=0;
 } btn_message_t;
@@ -239,6 +241,7 @@ void Task2code(void* pvParameters) {  // Отправка команд чере�
         TxBuff.RawBits = message.statusColumn; // Байт с битами всего столбца
         TxBuff.statPress = message.statPress;  // Статус нажата или отпущена кнопка         
         TxBuff.enc_step = message.enc_step; 
+        TxBuff.enc_stepH = message.enc_stepH; 
         TxBuff.enc_click = message.enc_click;
         TxBuff.enc_held = message.enc_held;               
         TxBuff.crc = crc8_bytes((byte*)&TxBuff, sizeof(TxBuff) - 1);
@@ -308,10 +311,12 @@ void Task4code(void* pvParameters) {  // Функции энкодера
   btn_message_t message;
     
   // =============== ЭНКОДЕР ===============  
-  if (enc.left()) {message.enc_step = -1; message.activeRow=-1;} // поворот налево 
-  if (enc.right()){message.enc_step =  1; message.activeRow=-1;} // поворот направо 
-  if (enc.click()){message.enc_click=  1; message.activeRow=-1;}  
-  if (enc.held()) {message.enc_held =  1; message.activeRow=-1;} 
+  if (enc.left()) {message.enc_step   = -1; message.activeRow=-1;} // поворот налево 
+  if (enc.right()){message.enc_step   =  1; message.activeRow=-1;} // поворот направо 
+  if (enc.click()){message.enc_click  =  1; message.activeRow=-1;} 
+  if (enc.held()) {message.enc_held   =  1; message.activeRow=-1;}
+  if (enc.leftH()) {message.enc_stepH = -1; message.activeRow=-1;} // поворот налево нажатый
+  if (enc.rightH()){message.enc_stepH =  1; message.activeRow=-1;} // поворот направо нажатый
         
   #if (ENABLE_DEBUG_ENC == 1)  
   if (enc.left()) Serial.println("left");     // поворот налево
