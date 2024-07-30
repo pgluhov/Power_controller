@@ -329,7 +329,7 @@ void Task4code(void* pvParameters) {  // Функции энкодера
   if (enc.held()) Serial.println("held");      // однократно вернёт true при удержании 
   #endif
 
-  if(message.enc_step!=0 || message.enc_click!=0 || message.enc_held!=0){    
+  if(message.enc_step!=0 || message.enc_click!=0 || message.enc_held!=0 || message.enc_stepH!=0){    
   if(QueueHandleKeyboard != NULL && uxQueueSpacesAvailable(QueueHandleKeyboard) > 0){ // проверьте, существует ли очередь И есть ли в ней свободное место
      int ret = xQueueSend(QueueHandleKeyboard, (void*) &message, 0);
      if(ret == pdTRUE){
@@ -340,6 +340,8 @@ void Task4code(void* pvParameters) {  // Функции энкодера
         Serial.println(message.enc_click); 
         Serial.print("Task4 enc_held " );
         Serial.println(message.enc_held); 
+        Serial.print("Task4 enc_stepH " );
+        Serial.println(message.enc_stepH); 
         Serial.println(); 
         #endif       
        }
