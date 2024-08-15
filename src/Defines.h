@@ -11,11 +11,11 @@
 #define ENABLE_DEBUG_KEYB_TASK2 0  // Если 1 то отладка клавиатуры включена 
 #define ENABLE_DEBUG_UART 0  // Если 1 то отладка обмена по uart включена 
 #define ENABLE_DEBUG_ENC  0  // Если 1 то отладка энкодера в Serial 
-#define ENABLE_DEBUG_TERMINAL  1  // Если 1 то отладка энкодера в Serial 
+#define ENABLE_DEBUG_TERMINAL  0  // Если 1 то отладка энкодера в Serial 
 
 String DEVICE_NAME = "Power controller"; // Имя девайса
-String CURRENT_VERSION_SW = "1.07";      // Текущая версиия прошивки 
-String VERSION_SW = "Версия ПО 1.07";    // Текст для отображения
+String CURRENT_VERSION_SW = "1.10";      // Текущая версиия прошивки 
+String VERSION_SW = "Версия ПО 1.10";    // Текст для отображения
  
 //--------номера IO-------------------
 
